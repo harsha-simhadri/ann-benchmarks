@@ -27,20 +27,32 @@
             <nav class="navbar navbar-inverse navbar-fixed-top">
               <div class="container">
                 <div class="navbar-header">
-                  <a class="navbar-brand" href="index.html">ANN Benchmarks</a>
+                  <a class="navbar-brand" href="index.html">Billion-scale ANN Benchmarks</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                   <ul class="nav navbar-nav">
                     <li class="active"><a href="index.html">Home</a></li>
                   </ul>
                   <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html#datasets">Datasets</a></li>
+                    <li class="active"><a href="index.html#why">Goals</a></li>
                   </ul>
                   <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html#algorithms">Algorithms</a></li>
+                    <li class="active"><a href="index.html#tracks">Tracks</a></li>
                   </ul>
                   <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html#contact">Contact</a></li>
+                    <li class="active"><a href="index.html#call">Call for Participation</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.html#bench-datasets">Benchmark Datasets</a></li>
+                  </ul>
+                  <!-- <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.html#datasets">Results by Datasets</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.html#algorithms">Results by Algorithms</a></li>
+                  </ul> -->
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.html#organizers">Organizers</a></li>
                   </ul>
                 </div><!--/.nav-collapse -->
               </div>
@@ -48,10 +60,104 @@
 
             {% block content %} {% endblock %}
 
-            <div id="contact">
-            <h2>Contact</h2>
-            <p>ANN-Benchmarks has been developed by Martin Aumueller (maau@itu.dk), Erik Bernhardsson (mail@erikbern.com), and Alec Faitfull (alef@itu.dk). Please use
-            <a href="https://github.com/erikbern/ann-benchmarks/">Github</a> to submit your implementation or improvements.</p>
+            <div id="why">
+              <h2>Why this competition?</h2>
+              In the past few years, we’ve seen a lot of new research and creative approaches tackling large-scale ANNS, including:
+              <ul>
+                <li>partition-based, and graph-based indexing strategies ( as well as hybrid indexing approaches.)</li>
+                <li>Mixing RAM and SSD storage to efficiently store and process large datasets that exceed the size of RAM</li>
+                <li>Running on accelerator hardware such as GPUs, FPGAs, and other custom in-memory silicon.</li>
+                <li>Leveraging machine learning for dimension reduction of the original vectors.</li>
+              </ul>
+               In addition to an uptick in academic interest, many implementation of these algorithms at scale now appear in production 
+               and high availability datacenter contexts: powering enterprise-grade, mission-critical, and web-scale search applications.
+                In these deployment scenarios, benchmarks such as cost, preprocessing time, power consumption become just as important as
+                the accuracy-vs-latency tradeoff. Despite this, most empirical evaluations of algorithms have focused on smaller datasets
+                of about a million points, e.g. ann-bechmarks.com. However, deploying recent algorithmic advances in ANNS techniques for
+                search, recommendation and ranking at scale require support at billion or substantially larger scale. Barring a few recent
+                papers, there is limited consensus on which algorithms are effective at this scale.
+                
+                We believe that this challenge will be impactful in several ways:
+                <ul>
+                  <li>Provides a comparative understanding of algorithmic ideas and their application at scale.</li>
+                  <li>Promotes the development of new techniques for the problem and demonstration of their value.</li>
+                  <li>Provides a compilation of datasets, many new, to enable future development of algorithms.</li>
+                  <li>Introduces of a standard benchmarking approach.</li>
+                </ul>
+                By providing a platform for the parties interested in this problem, we aim to en result in more collaboration and collectively advance the field at a more rapid pace.
+            </div>
+
+            <div id="call">
+              <h2>Call for Participation</h2>
+                Watch this space for official registration, finalized datasets, and competition rules. We expect registration in May. <BR>
+                Rough Timeline (subject to change):
+                <ul>
+                  <li>Mid To Late May : release of data, guidelines, rules, and a call for participation. The competition registration web site goes on-line.</li>
+                  <li>Mid-June: Code and testing infrastructure released. Participants in need of compute resources will be required to submit an expression of interest.</li>
+                  <li>Early July: Allocation of compute resources and start of the competition timeline.</li>
+                  <li>October: End of competition period and submission of code and report.</li>
+                  <li>Early November: Review of code by organizers and participants. Release of preliminary results on standardized machines.</li>
+                  <li>Early To Mid November: Participants can raise concerns about the evaluation.</li>
+                  <li>Early December: Final results published, and competitive results archived (the competition will go on if interest continues).</li>
+                </ul>
+                During NeurIPS Organizers overview the competition and results. Organizers also request the best entries
+                (including leaderboard toppers, or promising new approaches) to present an overview followed by discussion.
+            </div>
+
+            <div id="tracks">
+              <h2>Tracks</h2>
+              There are two standard standard hardware tracks in which the trade-off between recall and throughput will be evaluated. 
+              <ul>
+                <li>T1: DRAM is constrained to 64GB for search and 128GB for build.</li>
+                <li>T2: In addition to the limited DRAM in T1, the machine will have also 2TB SSD storage. </li>
+              </ul>
+              Participants are expected to release their code for index building and search which the organizers will run and time. Index building must complete in a limited time (to be specified).
+              
+              For the Custom Hardware track (T3), the participants can use non-standard hardware such as GPUs, AI accelerators, FPGAs, and custom in-memory silicon. 
+              In this track, participants will either 1) send their hardware (such as PCI boards) to GSI technology at their expense, 
+              or 2) if that is not possible, we will make scripts available so that those participants can run the evaluation themselves. 
+              In the T3 track, we will collect the following benchmarks:
+              <ul>
+                <li>Search Recall vs throughput</li>
+                <li>Index build time</li>
+                <li>Cost and power ( measured as queries/second/watt and MSRP/watt )</li>
+              </ul>
+               We will ask the participant to provide details and proof of the custom hardware’s cost in the form of manufactured suggested retail price (MSRP).
+
+               We will provide the exact details on how we collect and compute these benchmarks as well as additional machine and operating system specification before the competition begins.
+            </div>
+
+            <div id="bench-datasets">
+              <h2>Datasets</h2>
+              We intend to use the following 6 billion-scale datasets (datasets are subject to change).  We will be sharing links to query and sample sets, and the ground truth nearest neighbors of the query set too.
+              <ul>
+                <li>Microsoft-Turing-ANNS is a new dataset being released by the Microsoft Turing team for this competition.</li>
+                <li>Microsoft-SPACEV1B is a new dataset being released by Microsoft Bing for this competition.</li>
+                <li>Facebook-simsearchnet is a new dataset being released by Facebook for this competition.</li>
+                <li>Text-to-Image search from Yandex is a new cross-model dataset, where database and query vectors can potentially have different distributions in a shared representation space.</li>
+                <li>The BIGANN dataset which contains 1 billion SIFT descriptors extracted from a large image dataset.</li>
+                <li>The DEEP1B dataset consisting of the outputs of a DNN for a billion images on the web.</li>
+              </ul>
+            </div>
+
+            <div id="organizers">
+              <h2>Organizers</h2>
+              <ul>
+                <li>Harsha Vardhan Simhadri, Microsoft Research India</li>
+                <li>George Williams, GSI Technology </li>
+                <li>Martin Aumüller, IT University of Copenhagen </li>
+                <li>Artem Babenko, Yandex</li>
+                <li>Dmitry Baranchuk, Yandex</li>
+                <li>Qi Chen, Microsoft Research Asia</li>
+                <li>Matthijs Douze, Facebook AI Research</li>
+                <li>Ravishankar Krishnaswamy, Microsoft Research India and IIT Madras</li>
+                <li>Gopal Srinivasa, Microsoft Research India</li>
+                <li>Suhas Jayaram Subramanya, Carnegie Mellon University</li>
+                <li>Jingdong Wang, Microsoft Research Asia</li>
+              </ul>
+
+            <p>Organizers who can be reached at big-ann-organizers@googlegroups.com.
+            </p>
             </div>
         </div>
     </body>
