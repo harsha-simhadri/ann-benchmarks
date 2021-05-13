@@ -85,17 +85,31 @@
                   <li>Introduces of a standard benchmarking approach.</li>
                 </ul>
                 By providing a platform for the parties interested in this problem, we aim to en result in more collaboration and collectively advance the field at a more rapid pace.
+                Limited Azure compute credit will be provided to researchers in need of compute to develop their ideas.
             </div>
 
             <div id="tracks">
               <h2>Tracks</h2>
+              <h4>Standard Track</h4>
               <p>There are two standard standard hardware tracks in which the trade-off between recall and throughput will be evaluated. 
               <ul>
                 <li>(T1) In-memory indices with <a href="https://github.com/facebookresearch/faiss" target="_blank">FAISS</a> as the baseline. DRAM is constrained to 64GB for search and 128GB for build. </li>
                 <li>(T2) Out-of-core indices  with <a href="https://github.com/Microsoft/diskann" target="_blank">DiskANN</a> as the baseline. In addition to the limited DRAM in T1, the machine will have also 1TB SSD storage for search and 3TB storage for build.</li>
               </ul>
-              Participants are expected to release their code for index building and search which the organizers will run and time. Index building must complete in a limited time (to be specified).
+              Participants are expected to release their code for index building and search which the organizers will run and time. 
+              The protocol for evaluation is as follows:
+              <ul type="none">
+                <li>[on indexing machine] participants will be given a local path with 1B vector dataset. </li>
+                <li>[on indexing machine] participants build an index from the 1B vectors and store back to local disk. </li>
+                <li>[from indexing machine] Stored index is copied out to a temporary cloud storage location by the eval framework.</li>
+                <li>[on eval machine] organizers load the index from temp blob to a local path and provide the path to the search code.</li>
+                <li>[on eval machine] organizers perform searches with held-out query set and measure accuracy and search time with several sets of parameters.</li>
+              </ul>
               </p>
+              Index building must complete in 4 days on Azure <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/fsv2-series">Standard_F64s_v2 VM</a> (details likely to change).
+              Finalized details for build and search hardware timing will be released along with the the eval framework.
+
+              <h4> Custom Hardware Track</h4>
               <p>
               For the Custom Hardware track (T3), the participants can use non-standard hardware such as GPUs, AI accelerators, FPGAs, and custom in-memory silicon. 
               In this track, participants will either 1) send their hardware (such as PCI boards) to GSI technology at their expense, 
@@ -115,14 +129,16 @@
               <h2>Benchmark Datasets</h2>
               We intend to use the following 6 billion point datasets (datasets are subject to change).  
               <ul>
-                <li><a href="http://corpus-texmex.irisa.fr/" target="_blank">BIGANN</a> consists of SIFT descriptors applied to images from extracted from a large image dataset. Uses Euclidean distance.</li>
+                <li><a href="http://corpus-texmex.irisa.fr/" target="_blank">BIGANN</a> consists of SIFT descriptors applied to images from extracted from a large image dataset.</li>
                 <li>Facebook-simsearchnet is a new dataset being released by Facebook for this competition.</li>
                 <li>Microsoft-Turing-ANNS is a new dataset being released by the Microsoft Turing team for this competition.</li>
-                <li>Microsoft-SPACEV1B is a new dataset being released by Microsoft Bing for this competition.</li>
-                <li><a href="https://research.yandex.com/datasets/biganns" target="_blank">Yandex DEEP1B</a> dataset consisting of the outputs of a DNN
-                  for a billion images on the web. </li>
-                <li><a href="https://research.yandex.com/datasets/biganns" target="_blank">Yandex Text-to-Image-1B</a> is a new cross-model dataset,
-                  where database and query vectors can potentially have different distributions in a shared representation space.</li>
+                <li><a href="https://github.com/microsoft/SPTAG/tree/master/datasets/SPACEV1B">Microsoft SPACEV1B</a> is a new web search related dataset being released by Microsoft Bing for this competition.
+                 It consists of document and query vectors encoded by Microsoft SpaceV Superior model to capture generic intent representation.</li>
+                <li><a href="https://research.yandex.com/datasets/biganns" target="_blank">Yandex DEEP1B</a> image descriptor dataset consisting of the projected
+                  and normalized outputs from the last fully-connected layer of the GoogLeNet model, which was pretrained on the Imagenet classification task.  </li>
+                <li><a href="https://research.yandex.com/datasets/biganns" target="_blank">Yandex Text-to-Image-1B</a> is a new cross-model dataset (text and visual),
+                  where database and query vectors can potentially have different distributions in a shared representation space. Image embeddings produced by the
+                  Se-ResNext-101 model, and queries are textual embeddings produced by a variant of the DSSM model. </li>
               </ul>
 
               <par>
