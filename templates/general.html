@@ -96,29 +96,32 @@
                 <li>(T1) In-memory indices with <a href="https://github.com/facebookresearch/faiss" target="_blank">FAISS</a> as the baseline. DRAM is constrained to 64GB for search and 128GB for build. </li>
                 <li>(T2) Out-of-core indices  with <a href="https://github.com/Microsoft/diskann" target="_blank">DiskANN</a> as the baseline. In addition to the limited DRAM in T1, the machine will have also 1TB SSD storage for search and 3TB storage for build.</li>
               </ul>
-              Participants are expected to release their code for index building and search which the organizers will run and time on separate machines. 
+              Participants are expected to release their code for index building and search which the organizers will run on separate machines.
+              Participants provide a configuration for their index build code that would complete in 4 days on an Azure
+              <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/fsv2-series">Standard_F64s_v2 VM</a>
+              with 4TB of SSD to be used for storing the data, index and other intermediate data (details likely to change).
+              For search, participants are allowed up to 10 hyperparameter configurations. 
               The protocol for evaluation is as follows:
               <ul type="none">
                 <li>[on indexing machine] participants will be given a local path with 1B vector dataset. </li>
                 <li>[on indexing machine] participants build an index from the 1B vectors and store back to local disk. </li>
                 <li>[on indexing machine] Stored index is copied out to a temporary cloud storage location by the eval framework.</li>
-                <li>[on eval machine] organizers load the index from temp blob to a local path and provide the path to the search code.</li>
-                <li>[on eval machine] organizers perform searches with held-out query set and measure accuracy and search time with several sets of parameters.</li>
+                <li>[on search machine] organizers load the index from temp blob to a local path and provide the path to the search code.</li>
+                <li>[on search machine] organizers perform searches with held-out query set and measure accuracy and search time with several sets of parameters.</li>
               </ul>
               </p>
-              Index building must complete in 4 days on Azure <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/fsv2-series">Standard_F64s_v2 VM</a> (details likely to change).
               Finalized details for build and search hardware timing will be released along with the the eval framework.
 
               <h4> Custom Hardware Track</h4>
               <p>
               For the Custom Hardware track (T3), the participants can use non-standard hardware such as GPUs, AI accelerators, FPGAs, and custom in-memory silicon. 
-              In this track, participants will either 1) send their hardware (such as PCI boards) to GSI technology at their expense, 
+              In this track, participants will either 1) send their hardware, such as PCI boards, to GSI technology at their expense, 
               or 2) if that is not possible, we will make scripts available so that those participants can run the evaluation themselves. 
               In the T3 track, we will collect the following benchmarks:
               <ul>
                 <li>Search Recall vs throughput</li>
                 <li>Index build time</li>
-                <li>Cost and power ( measured as queries/second/watt and MSRP/watt )</li>
+                <li>Cost and power (measured as queries/second/watt and MSRP/watt)</li>
               </ul>
                We will ask the participant to provide details and proof of the custom hardware’s cost in the form of manufactured suggested retail price (MSRP).
               </p>
@@ -141,17 +144,17 @@
                   Se-ResNext-101 model, and queries are textual embeddings produced by a variant of the DSSM model. </li>
               </ul>
 
-              <par>
-              The details of the datasets along with links to the base, query and sample sets, and the ground truth nearest neighbors of the query set are listed below. 
+              <p>
               All datasets including ground truth data are in the standardized binary format that starts with 8 bytes of data consisting of <em>num_points(uint32_t)</em>
               <em>num_dimensions(uint32)</em> followed by <em>num_pts X num_dimensions x sizeof(type)</em> bytes of data stored one vector after another. Data files
               will have suffixes <em>.fbin</em>, <em>.u8bin</em>, and <em>.i8bin</em> to represent float32, uint8 and int8 type data. Note that a different query set
-              will be used for evaluation. 
-              </par>
+              will be used for evaluation. The details of the datasets along with links to the base, query and sample sets, and the ground truth nearest neighbors 
+              of the query set are listed below. 
+              </p>
 
-              <TABLE border="1" width="800" cellpadding=5>
+              <TABLE  style="text-align:center"  border="1" width="800" cellpadding=5>
                 <TR>
-                   <TD> Datasets </TD>
+                   <TD> Dataset </TD>
                    <TD> Datatype </TD>
                    <TD> Dimensions </TD>
                    <TD> Distance </TD>
@@ -173,7 +176,7 @@
                    <TD> TBA </TD>
                 </TR>
                 <TR>
-                  <TD> Facebook-simsearchnet </TD>
+                  <TD> Facebook-simsearchnet* </TD>
                   <TD> uint8 </TD>
                   <TD> 256 </TD>
                   <TD> cosine </TD>
@@ -184,7 +187,7 @@
                   <TD> TBA </TD>
                </TR>
                <TR>
-                <TD> Microsoft-Turing-ANNS </TD>
+                <TD> Microsoft-Turing-ANNS* </TD>
                 <TD> uint8 </TD>
                 <TD> 100 </TD>
                 <TD> L2 </TD>
@@ -195,7 +198,7 @@
                 <TD> TBA </TD>
               </TR>
               <TR>
-                <TD> Microsoft-SPACEV1B </TD>
+                <TD> Microsoft-SPACEV1B* </TD>
                 <TD> uint8 </TD>
                 <TD> 100 </TD>
                 <TD> L2 </TD>
@@ -217,7 +220,7 @@
                 <TD> <a href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> </TD>
               </TR>
               <TR>
-                <TD> Yandex Text-to-Image-1B </TD>
+                <TD> Yandex Text-to-Image-1B* </TD>
                 <TD> float32 </TD>
                 <TD> 200 </TD>
                 <TD> inner-product </TD>
@@ -228,20 +231,21 @@
                 <TD> <a href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> </TD>
               </TR>
              </TABLE>
+             * new datasets
             </div>
 
             <div id="call">
-              <h2>Call for Participation</h2>
+              <h2>Call for Participation and Timeline</h2>
                 Watch this space for official registration, finalized datasets, and competition rules. We expect registration in May. <BR>
                 Rough Timeline (subject to change):
                 <ul>
-                  <li>Mid To Late May : release of data, guidelines, rules, and a call for participation. The competition registration web site goes on-line.</li>
-                  <li>Mid-June: Code and testing infrastructure released. Participants in need of compute resources will be required to submit an expression of interest.</li>
+                  <li>May : release of data, guidelines, rules, and a call for participation. The competition registration web site goes on-line.</li>
+                  <li>end-June: Baseline code, results and testing infrastructure released. Participants in need of compute resources will be required to submit an expression of interest.</li>
                   <li>Early July: Allocation of compute resources and start of the competition timeline.</li>
-                  <li>October: End of competition period and submission of code and report.</li>
-                  <li>Early November: Review of code by organizers and participants. Release of preliminary results on standardized machines.</li>
+                  <li>October 31st: End of competition period and submission of code and report.</li>
+                  <li>mid-November: Review of code by organizers and participants. Release of preliminary results on standardized machines.</li>
                   <li>Early To Mid November: Participants can raise concerns about the evaluation.</li>
-                  <li>Early December: Final results published, and competitive results archived (the competition will go on if interest continues).</li>
+                  <li>Early December: Final results published, and competition results archived (the competition will go on if interest continues).</li>
                 </ul>
                 During NeurIPS Organizers overview the competition and results. Organizers also request the best entries
                 (including leaderboard toppers, or promising new approaches) to present an overview followed by discussion.
