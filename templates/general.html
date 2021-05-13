@@ -113,15 +113,105 @@
 
             <div id="bench-datasets">
               <h2>Benchmark Datasets</h2>
-              We intend to use the following 6 billion point datasets (datasets are subject to change).  We will be sharing links to query and sample sets, and the ground truth nearest neighbors of the query set too.
+              We intend to use the following 6 billion point datasets (datasets are subject to change).  
               <ul>
                 <li><a href="http://corpus-texmex.irisa.fr/" target="_blank">BIGANN</a> consists of SIFT descriptors applied to images from extracted from a large image dataset. Uses Euclidean distance.</li>
                 <li>Facebook-simsearchnet is a new dataset being released by Facebook for this competition.</li>
                 <li>Microsoft-Turing-ANNS is a new dataset being released by the Microsoft Turing team for this competition.</li>
                 <li>Microsoft-SPACEV1B is a new dataset being released by Microsoft Bing for this competition.</li>
-                <li><a href="https://research.yandex.com/datasets/biganns" target="_blank">Yandex DEEP1B</a> dataset consisting of the outputs of a DNN for a billion images on the web. Uses Euclidean distance.</li>
-                <li><a href="https://research.yandex.com/datasets/biganns" target="_blank">Yandex Text-to-Image-1B</a> is a new cross-model dataset, where database and query vectors can potentially have different distributions in a shared representation space. Uses inner roduct</li>
+                <li><a href="https://research.yandex.com/datasets/biganns" target="_blank">Yandex DEEP1B</a> dataset consisting of the outputs of a DNN
+                  for a billion images on the web. </li>
+                <li><a href="https://research.yandex.com/datasets/biganns" target="_blank">Yandex Text-to-Image-1B</a> is a new cross-model dataset,
+                  where database and query vectors can potentially have different distributions in a shared representation space.</li>
               </ul>
+
+              <par>
+              The details of the datasets along with links to the base, query and sample sets, and the ground truth nearest neighbors of the query set are listed below. 
+              All datasets including ground truth data are in the standardized binary format that starts with 8 bytes of data consisting of <em>num_points(uint32_t)</em>
+              <em>num_dimensions(uint32)</em> followed by <em>num_pts X num_dimensions x sizeof(type)</em> bytes of data stored one vector after another. Data files
+              will have suffixes <em>.fbin</em>, <em>.u8bin</em>, and <em>.i8bin</em> to represent float32, uint8 and int8 type data. Note that a different query set
+              will be used for evaluation. 
+              </par>
+
+              <TABLE border="1" width="800" cellpadding=5>
+                <TR>
+                   <TD> Datasets </TD>
+                   <TD> Datatype </TD>
+                   <TD> Dimensions </TD>
+                   <TD> Distance </TD>
+                   <TD> Base data </TD>
+                   <TD> Sample data </TD>
+                   <TD> Query data </TD>
+                   <TD> Ground Truth </TD>
+                   <TD> Release terms </TD>
+                </TR>
+                <TR>
+                   <TD> BIGANN </TD>
+                   <TD> uint8 </TD>
+                   <TD> 128 </TD>
+                   <TD> L2 </TD>
+                   <TD> TBA </TD>
+                   <TD> TBA </TD>
+                   <TD> TBA </TD>
+                   <TD> TBA </TD>
+                   <TD> TBA </TD>
+                </TR>
+                <TR>
+                  <TD> Facebook-simsearchnet </TD>
+                  <TD> uint8 </TD>
+                  <TD> 256 </TD>
+                  <TD> cosine </TD>
+                  <TD> TBA </TD>
+                  <TD> TBA </TD>
+                  <TD> TBA </TD>
+                  <TD> TBA </TD>
+                  <TD> TBA </TD>
+               </TR>
+               <TR>
+                <TD> Microsoft-Turing-ANNS </TD>
+                <TD> uint8 </TD>
+                <TD> 100 </TD>
+                <TD> L2 </TD>
+                <TD> TBA </TD>
+                <TD> TBA </TD>
+                <TD> TBA </TD>
+                <TD> TBA </TD>
+                <TD> TBA </TD>
+              </TR>
+              <TR>
+                <TD> Microsoft-SPACEV1B </TD>
+                <TD> uint8 </TD>
+                <TD> 100 </TD>
+                <TD> L2 </TD>
+                <TD> TBA </TD>
+                <TD> TBA </TD>
+                <TD> TBA </TD>
+                <TD> TBA </TD>
+                <TD> TBA </TD>
+              </TR>
+              <TR>
+                <TD> Yandex DEEP1B </TD>
+                <TD> float32 </TD>
+                <TD> 96 </TD>
+                <TD> L2 </TD>
+                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/DEEP/base.1B.fbin">1B points</a> </TD>
+                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/DEEP/learn.350M.fbin ">350M points</a> </TD>
+                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/DEEP/query.public.10K.fbin">10K queries</a> </TD>
+                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/DEEP/groundtruth.public.10K.ibin">link</a> </TD>
+                <TD> <a href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> </TD>
+              </TR>
+              <TR>
+                <TD> Yandex Text-to-Image-1B </TD>
+                <TD> float32 </TD>
+                <TD> 200 </TD>
+                <TD> inner-product </TD>
+                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/base.1B.fdata">1B points</a> </TD>
+                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/query.learn.50M.fbin ">50M points</a> </TD>
+                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/query.public.100K.fbin">100K queries</a> </TD>
+                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/groundtruth.public.100K.ibin">link</a> </TD>
+                <TD> <a href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> </TD>
+              </TR>
+             </TABLE>
             </div>
 
             <div id="call">
