@@ -105,12 +105,12 @@
                 <li>(T1) In-memory indices with <a href="https://github.com/facebookresearch/faiss" target="_blank">FAISS</a> as the baseline. DRAM is constrained to 64GB for search and 128GB for build. </li>
                 <li>(T2) Out-of-core indices  with <a href="https://github.com/Microsoft/diskann" target="_blank">DiskANN</a> as the baseline. In addition to the limited DRAM in T1, the machine will have also 1TB SSD storage for search and 3TB storage for build.</li>
               </ul>
-              Participants are expected to release their code for index building and search which the organizers will run and time. 
+              Participants are expected to release their code for index building and search which the organizers will run and time on separate machines. 
               The protocol for evaluation is as follows:
               <ul type="none">
                 <li>[on indexing machine] participants will be given a local path with 1B vector dataset. </li>
                 <li>[on indexing machine] participants build an index from the 1B vectors and store back to local disk. </li>
-                <li>[from indexing machine] Stored index is copied out to a temporary cloud storage location by the eval framework.</li>
+                <li>[on indexing machine] Stored index is copied out to a temporary cloud storage location by the eval framework.</li>
                 <li>[on eval machine] organizers load the index from temp blob to a local path and provide the path to the search code.</li>
                 <li>[on eval machine] organizers perform searches with held-out query set and measure accuracy and search time with several sets of parameters.</li>
               </ul>
