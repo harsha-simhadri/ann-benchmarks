@@ -92,11 +92,13 @@
 
             <div id="tracks">
               <h2>Tracks</h2>
-              <h4>Standard Track</h4>
+              <h4>Standard Hardware Track</h4>
               <p>There are two standard standard hardware tracks in which the trade-off between recall and throughput will be evaluated. 
               <ul>
-                <li>(T1) In-memory indices with <a href="https://github.com/facebookresearch/faiss" target="_blank">FAISS</a> as the baseline. DRAM is constrained to 64GB for search and 128GB for build. </li>
-                <li>(T2) Out-of-core indices  with <a href="https://github.com/Microsoft/diskann" target="_blank">DiskANN</a> as the baseline. In addition to the limited DRAM in T1, the machine will have also 1TB SSD storage for search and 3TB storage for build.</li>
+                <li>(T1) In-memory indices with <a href="https://github.com/facebookresearch/faiss" target="_blank">FAISS</a> as the baseline.
+                   DRAM is constrained to 64GB for search and 128GB for build. </li>
+                <li>(T2) Out-of-core indices  with <a href="https://github.com/Microsoft/diskann" target="_blank">DiskANN</a> as the baseline.
+                  In addition to the limited DRAM in T1, the machine will have also 1TB SSD for search and 4TB storage for build.</li>
               </ul>
               Participants are expected to release their code for index building and search which the organizers will run on separate machines.
               Participants provide a configuration for their index build code that would complete in 4 days on an Azure
