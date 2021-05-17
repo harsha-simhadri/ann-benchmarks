@@ -82,24 +82,24 @@
                 <li>Partition-based, and graph-based indexing strategies (as well as hybrid indexing approaches).</li>
                 <li>Mixing RAM and SSD storage to efficiently store and process large datasets that exceed the size of RAM.</li>
                 <li>Using accelerator hardware such as GPUs, FPGAs, and other custom in-memory silicon.</li>
-                <li>Leveraging machine learning for dimension reduction of the original vectors.</li>
+                <li>Leveraging machine learning for dimensionality reduction of the original vectors.</li>
               </ul>
               <p>
-               In addition to an uptick in academic interest, many implementation of these algorithms at scale now appear in production 
+               In addition to an uptick in academic interest, many implementations of these algorithms at scale now appear in production 
                and high availability datacenter contexts: powering enterprise-grade, mission-critical, and web-scale search applications.
                 In these deployment scenarios, benchmarks such as cost, preprocessing time, power consumption become just as important as
-                the accuracy-vs-latency tradeoff. Despite this, most empirical evaluations of algorithms have focused on smaller datasets
+                the recall-vs-latency tradeoff. Despite this, most empirical evaluations of algorithms have focused on smaller datasets
                 of about a million points, e.g. ann-bechmarks.com. However, deploying recent algorithmic advances in ANNS techniques for
-                search, recommendation and ranking at scale require support at billion or substantially larger scale. Barring a few recent
+                search, recommendation and ranking at scale requires support at billion or substantially larger scale. Barring a few recent
                 papers, there is limited consensus on which algorithms are effective at this scale.
               </p>
 
                 We believe that this challenge will be impactful in several ways:
                 <ul>
-                  <li>Provides a comparative understanding of algorithmic ideas and their application at scale.</li>
-                  <li>Promotes the development of new techniques for the problem and demonstration of their value.</li>
-                  <li>Provides a compilation of datasets, many new, to enable future development of algorithms.</li>
-                  <li>Introduces of a standard benchmarking approach.</li>
+                  <li>Provide a comparative understanding of algorithmic ideas and their application at scale.</li>
+                  <li>Promote the development of new techniques for the problem and demonstration of their value.</li>
+                  <li>Provide a compilation of datasets, many new, to enable future development of algorithms.</li>
+                  <li>Introduce a standard benchmarking approach.</li>
                 </ul>
                 By providing a platform for those interested in this problem, we aim to encourge more collaboration and collectively advance the field at a more rapid pace.
                 <strong> Researchers can request Azure compute credit from a pool sponsored by Microsoft Research.</strong>
@@ -114,7 +114,7 @@
                   <li>(T1) In-memory indices with <a href="https://github.com/facebookresearch/faiss" target="_blank">FAISS</a> as the baseline.
                      DRAM is constrained to 64GB for search and 128GB for build. </li>
                   <li>(T2) Out-of-core indices  with <a href="https://github.com/Microsoft/diskann" target="_blank">DiskANN</a> as the baseline.
-                    In addition to the limited DRAM in T1, the machine will have also 1TB SSD for search and 4TB storage for build.</li>
+                    In addition to the limited DRAM in T1, the machine will also host a ~1TB SSD for search and 4TB storage for build.</li>
                 </ul>
                 Participants are expected to release their code for index building and search which the organizers will run on separate machines.
                 Participants provide a configuration for their index build code that would complete in 4 days on an Azure
@@ -127,7 +127,7 @@
                   <li>[on indexing machine] participants build an index from the 1B vectors and store back to local disk. </li>
                   <li>[on indexing machine] Stored index is copied out to a temporary cloud storage location by the eval framework.</li>
                   <li>[on search machine] organizers load the index from cloud storage to a local path and provide the path to the search code.</li>
-                  <li>[on search machine] organizers perform searches with held-out query set and measure accuracy and search time with several sets of parameters.</li>
+                  <li>[on search machine] organizers perform searches with held-out query set and measure recall and time to process the queries with several sets of parameters.</li>
                 </ul>
               </p>
               
@@ -153,7 +153,7 @@
                       <li>	[on separate indexing machine] participants build an index from the 1B vectors and store back to local disk </li>
                       <li>  Stored index is copied to eval machine </li>
                       <li>	[on eval machine] T3 organizers load the index from local disk </li>
-                      <li>	[on eval machine] T3 organizers perform searches with held-out query set and measure accuracy and search time with several sets of parameters. </li>
+                      <li>	[on eval machine] T3 organizers perform searches with held-out query set and measure recall and time to process the queries with several sets of parameters. </li>
                     </ul>
                   </li>
                   <li> For participants that give us remote access to systems, participants are responsible for building their index.
@@ -162,7 +162,7 @@
                       <li>	[on indexing machine] participants build an index from the 1B vectors and store back to local disk </li>
                       <li>	Stored index is copied to eval machine</li>
                       <li>	[on eval machine] T3 organizers load the index from local disk</li>
-                      <li>	[on eval machine] T3 organizers perform searches with held-out query set and measure accuracy and search time with several sets of parameters.</li>
+                      <li>	[on eval machine] T3 organizers perform searches with held-out query set and measure recall and search time with several sets of parameters.</li>
                     </ul>
                   </li>
                 </ul>
@@ -172,7 +172,7 @@
                   <li>Recall vs throughput using the same ranking formula as the T1/T2 track</li>
                   <li>Power- recall vs throughput/watt and a similar ranking formula to the T1/T2 track.</li>
                   <li>Cost measured as cost/watt (measured as queries/second/watt and MSRP/watt)</li>
-                  <li>Total cost that will normalize cost across all tracks.</li>
+                  <li>Total cost normalized across all tracks.</li>
                 </ul>
                 We will provide the exact details on how we collect and compute these benchmarks as well as additional machine and operating system specification before the competition begins.
              </p>
@@ -191,12 +191,12 @@
                 <li><a href="https://research.yandex.com/datasets/biganns" target="_blank">Yandex DEEP1B</a> image descriptor dataset consisting of the projected
                   and normalized outputs from the last fully-connected layer of the GoogLeNet model, which was pretrained on the Imagenet classification task.  </li>
                 <li><a href="https://research.yandex.com/datasets/biganns" target="_blank">Yandex Text-to-Image-1B</a> is a new cross-model dataset (text and visual),
-                  where database and query vectors can potentially have different distributions in a shared representation space. Image embeddings produced by the
+                  where database and query vectors can potentially have different distributions in a shared representation space. Image embeddings are produced by the
                   Se-ResNext-101 model, and queries are textual embeddings produced by a variant of the DSSM model. </li>
               </ul>
 
               <p>
-              All datasets including ground truth data are in the standardized binary format that starts with 8 bytes of data consisting of <em>num_points(uint32_t)</em>
+              All datasets including ground truth data are in the common binary format that starts with 8 bytes of data consisting of <em>num_points(uint32_t)</em>
               <em>num_dimensions(uint32)</em> followed by <em>num_pts X num_dimensions x sizeof(type)</em> bytes of data stored one vector after another. Data files
               will have suffixes <em>.fbin</em>, <em>.u8bin</em>, and <em>.i8bin</em> to represent float32, uint8 and int8 type data. Note that a different query set
               will be used for evaluation. The details of the datasets along with links to the base, query and sample sets, and the ground truth nearest neighbors 
@@ -312,7 +312,7 @@
                For Track T3, the document should contain the following additional details to help organizers plan
                and assess eligibility for seperate leaderboards:
                 <ul>
-                  <li> Type of hardware, e.g., PCI extension board, rack-mounted system, or other. </li>
+                  <li> Type of hardware, e.g., PCIe extension board, rack-mounted system, or other. </li>
                  <li> Evidence of the retail MSRP of the hardware, i.e., pricing on website or copy of the customer invoice. </li>
                   <li> If hardware will be sent to GSI Technology (at the participants expense) or if organizers will given remote access to the systems. 
                   	 For remote system access participants, whether their system supports standard IPMI power monitoring.  
@@ -339,7 +339,7 @@
                   <li>October 29th: Participants submit a brief report outlining their algorithm and results.</li>
                   <li>Mid-November: Release of preliminary results on standardized machines. Review of code by organizers and participants. Participants can raise concerns about the evaluation.</li>
                   <li>Early December: Final results published, and competition results archived (the competition will go on if interest continues).</li>
-                  <li>During NeurIPS, organizers will overview the competition and results. Organizers will also request the best entries
+                  <li>During NeurIPS, organizers will provide an overview of the competition and results. Organizers will also request the best entries
                     (including leaderboard toppers, or promising new approaches) to present an overview for further discussion.</li>
               </ul>
               </p>
