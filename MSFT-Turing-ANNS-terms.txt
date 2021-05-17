@@ -1,5 +1,5 @@
-Release Terms for the MSFT-Turing-ANNS dataset
-----------------------------------------------
+Release Terms for the Microsoft-Turing-ANNS dataset
+---------------------------------------------------
 
 The MS-Turing-ANNS datasets are intended for non-commercial research
 purposes only to promote advancement in the field of artificial
