@@ -173,7 +173,8 @@
               <ul>
                 <li><a href="http://corpus-texmex.irisa.fr/" target="_blank">BIGANN</a> consists of SIFT descriptors applied to images from extracted from a large image dataset.</li>
                 <li>Facebook-simsearchnet is a new dataset being released by Facebook for this competition.</li>
-                <li>Microsoft-Turing-ANNS is a new dataset being released by the Microsoft Turing team for this competition.</li>
+                <li>Microsoft-Turing-ANNS is a new dataset being released by the Microsoft Turing team for this competition.
+                  It consists of Bing web queries encoded with Turing AGI Encoder v5. </li>
                 <li><a href="https://github.com/microsoft/SPTAG/tree/master/datasets/SPACEV1B">Microsoft SPACEV1B</a> is a new web search related dataset being released by Microsoft Bing for this competition.
                  It consists of document and query vectors encoded by Microsoft SpaceV Superior model to capture generic intent representation.</li>
                 <li><a href="https://research.yandex.com/datasets/biganns" target="_blank">Yandex DEEP1B</a> image descriptor dataset consisting of the projected
@@ -234,7 +235,7 @@
                 <TD> 100 </TD>
                 <TD> L2 </TD>
                 <TD> k-NN </TD>
-                <TD> TBA </TD>
+                <TD> <a href="https://kannstorage.blob.core.windows.net/maincontainer/comp21/MSFT-TURING-ANNS/base1b.fbin?sp=r&st=2021-05-17T06:52:29Z&se=2021-12-31T15:52:29Z&spr=https&sv=2020-02-10&sr=b&sig=18YOEwzokPKZO2ZAxQt5%2FJOPbaBE7TCmJADVDki6yGA%3D"> 1B points</a></TD>
                 <TD> TBA </TD>
                 <TD> TBA </TD>
                 <TD> TBA </TD>
@@ -246,10 +247,10 @@
                 <TD> 100 </TD>
                 <TD> L2 </TD>
                 <TD> k-NN </TD>
-                <TD> TBA </TD>
-                <TD> TBA </TD>
-                <TD> TBA </TD>
-                <TD> TBA </TD>
+                <TD> <a href="https://kannstorage.blob.core.windows.net/maincontainer/comp21/spacev1b/spacev1b_base.i8bin?sp=r&st=2021-05-17T06:51:52Z&se=2021-12-31T15:51:52Z&spr=https&sv=2020-02-10&sr=b&sig=w7RI3GcDOtyTgTy0Ku3mdfIfkkuFjYLDNGgfFniHzkM%3D">1B points</a></TD>
+                <TD> <a href="https://kannstorage.blob.core.windows.net/maincontainer/comp21/spacev1b/spacev100m_base.i8bin?sp=r&st=2021-05-17T06:49:50Z&se=2021-12-31T15:49:50Z&spr=https&sv=2020-02-10&sr=b&sig=GELDQR%2F5BOBttY5aHaa0hVr4%2BQVHgstq%2FQsI1uqF9x0%3D">100M points</a> </TD>
+                <TD> <a href="https://kannstorage.blob.core.windows.net/maincontainer/comp21/spacev1b/query.i8bin?sp=r&st=2021-05-17T06:50:37Z&se=2021-12-31T15:50:37Z&spr=https&sv=2020-02-10&sr=b&sig=N1dZOPwTcChsDu1xIgomfJXbHTbE1Dqbm4fjdVU3nSM%3D">29.3K Queries</a> </TD>
+                <TD> <a href="https://kannstorage.blob.core.windows.net/maincontainer/comp21/spacev1b/spacev1b_gt.ibin?sp=r&st=2021-05-17T06:51:23Z&se=2021-12-31T15:51:23Z&spr=https&sv=2020-02-10&sr=b&sig=enFIXbPoYx3Sb9VT8yhtk8tQYZuYYNUFSGfeM%2BhMeFE%3D">link</a> </TD>
                 <TD> <a href="https://github.com/microsoft/SPTAG/blob/master/datasets/SPACEV1B/LICENSE" target="_blank">O-UDA</a> </TD>
               </TR>
               <TR>
@@ -285,14 +286,16 @@
               <p>
                 Participation is open to all teams interested in developing new algorithms or re-implementing 
                 existing algorithms more efficiently either in software or hardware. Participants are
-                requested to submit a brief document for each track they will be submitting an entry through
-                CMT and consent to the terms of participation (to be released). The document should contain the following details:
+                requested to submit a brief document for each track they will be submitting 
+                <a href="https://cmt3.research.microsoft.com/BigANNS2021">an entry through CMT</a>. 
+                 The document should contain the following details:
                 <ul>
                   <li> Name, email and affiliation of each participant in the team </li>
                   <li> A name and/or URL for the submission. </li>
-                  <li> [Optional] To request Azure credits for developing new ideas, please support your request
+                  <li> [Optional] To receive Azure credits for developing new ideas, please support your request
                    with preliminary data on smaller scale datasets and why you think your algorithm will work
-                   well at billion scale. This will be used by the organizers to select strong entries.</li>
+                   well at billion scale. This will be used by the organizers to select strong entries. We request
+                   teams (e.g. those from industry) with access to infrastructure to avoid request credits. </li>
                 </ul>
 
 
@@ -308,10 +311,15 @@
                   </ul>
               </p>
 
+              <h4>Consent Forms</h4>
+              Please review and complete the consent form for participation <a href="https://forms.office.com/r/DxGuwujC4T">for Tracks T1/T2</a>
+              and <a href="https://forms.office.com/r/qWTBuVApDs">Track T3</a>. Note that there are separate consent forms
+                for the standard and custom hardware tracks. Completing the form is necessary for participation.
+
               <p>
               <h4>Timeline (subject to change)</h4>
               <ul>
-                  <li>May: release of data, guidelines, and a call for participation. The competition registration web site goes on-line.</li>
+                  <li>May: release of data, guidelines, and a call for participation. Registration open. </li>
                   <li>Mid-June: Baseline results, testing infrastructure and final ranking metrics released.</li>
                   <li>June 30th: Participants in need of compute resources to submit an expression of interest.</li>
                   <li>Mid-July: Allocation of compute resources.</li>
