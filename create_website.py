@@ -211,7 +211,7 @@ def build_index_site(datasets, algorithms, j2_env, file_name):
 
     with open(args.outputdir + "index.html", "w") as text_file:
         text_file.write(j2_env.get_template("summary.html").
-                        render(title="ANN-Benchmarks",
+                        render(title="Big ANN Benchmarks",
                                dataset_with_distances=dataset_data,
                                algorithms=algorithms))
 
