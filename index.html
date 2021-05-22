@@ -59,7 +59,7 @@
             </nav>
 
                     <div class="container">
-            <h1>Billion-Scale Approximate Nearest Neighbor Search Challenge: NeurIPS'21 competition</h1>
+            <h1>Billion-Scale Approximate Nearest Neighbor Search Challenge: <a href="https://neurips.cc/Conferences/2021/CompetitionTrack" NeurIPS'21 competition</a></h1>
 
             </p>
             <div id="results">
@@ -112,9 +112,9 @@
                 There are two standard standard hardware tracks in which the trade-off between recall and throughput will be evaluated. 
                 <ul>
                   <li>(T1) In-memory indices with <a href="https://github.com/facebookresearch/faiss" target="_blank">FAISS</a> as the baseline.
-                     DRAM is constrained to 64GB for search and 128GB for build. </li>
+                     DRAM is constrained to 64GB for search and 128GB for build. 4TB scratch space is provided for build. </li>
                   <li>(T2) Out-of-core indices  with <a href="https://github.com/Microsoft/diskann" target="_blank">DiskANN</a> as the baseline.
-                    In addition to the limited DRAM in T1, the machine will also host a ~1TB SSD for search and 4TB storage for build.</li>
+                    In addition to the limited DRAM in T1, the machine will also host a ~1TB SSD for search.</li>
                 </ul>
                 Participants are expected to release their code for index building and search which the organizers will run on separate machines.
                 Participants provide a configuration for their index build code that would complete in 4 days on an Azure
