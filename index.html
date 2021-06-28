@@ -120,7 +120,8 @@
                 Participants provide a configuration for their index build code that would complete in 4 days on an Azure
                 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/fsv2-series">Standard_F64s_v2 VM</a>
                 with 4TB of SSD to be used for storing the data, index and other intermediate data (details likely to change).
-                For search, participants are allowed up to 10 hyperparameter configurations. 
+                For search, participants are allowed up to 10 hyperparameter configurations. Track T2 would use 
+                <a ref="https://docs.microsoft.com/en-us/azure/virtual-machines/lsv2-series">Standard_L8s_v2 VMs</a> with local SSDs. 
                 The protocol for evaluation is as follows:
                 <ul type="none">
                   <li>[on indexing machine] participants will be given a local path with 1B vector dataset. </li>
@@ -196,16 +197,30 @@
                 <li><a href="https://research.yandex.com/datasets/biganns" target="_blank">Yandex DEEP1B</a> image descriptor dataset consisting of the projected
                   and normalized outputs from the last fully-connected layer of the GoogLeNet model, which was pretrained on the Imagenet classification task.  </li>
                 <li><a href="https://research.yandex.com/datasets/biganns" target="_blank">Yandex Text-to-Image-1B</a> is a new cross-model dataset (text and visual),
-                  where database and query vectors can potentially have different distributions in a shared representation space. Image embeddings are produced by the
-                  Se-ResNext-101 model, and queries are textual embeddings produced by a variant of the DSSM model. </li>
+                  where database and query vectors have different distributions in a shared representation space. The base set consists of Image embeddings produced by the
+                  Se-ResNext-101 model, and queries are textual embeddings produced by a variant of the DSSM model. Since the distributions are different, a 50M sample 
+                  of the query distribution is provided. </li>
               </ul>
 
               <p>
-              All datasets including ground truth data are in the common binary format that starts with 8 bytes of data consisting of <em>num_points(uint32_t)</em>
+              All datasets are in the common binary format that starts with 8 bytes of data consisting of <em>num_points(uint32_t)</em>
               <em>num_dimensions(uint32)</em> followed by <em>num_pts X num_dimensions x sizeof(type)</em> bytes of data stored one vector after another. Data files
               will have suffixes <em>.fbin</em>, <em>.u8bin</em>, and <em>.i8bin</em> to represent float32, uint8 and int8 type data. Note that a different query set
               will be used for evaluation. The details of the datasets along with links to the base, query and sample sets, and the ground truth nearest neighbors 
-              of the query set are listed below. 
+              of the query set are listed below.
+              </p>
+              
+              <p>
+              The ground truth binary files for k-NN search consist of the following information: <em>num_queries(uint32_t)</em>
+              <em>K-NN(uint32)</em> followed by <em>num_queries X K x sizeof(uint32_t)</em> bytes of data representing the IDs of the K-nearest neighbors of the
+              queries, followed by <em>num_queries X K x sizeof(float)</em> bytes of data representing the distances to the corresponding points. The distances
+              help identify neighbors tied in terms of distances. In recall calculation, returning a neighbor not in the ground truth set but whose distance is tied
+              with an entry in the ground truth is counted as success.
+
+              The ground truth binary files for range search consist of the following information: <em>num_queries(int32_t)</em> followed by the total number
+              of results <em>total_res(int32_t)</em> followed
+              by <em> num_queries X size(int32_t)</em> bytes corresponding to <em>num_results_per_query</em> for each query, followed by <em>total_res X sizeof(int32_t)</em>
+              bytes corresponding to the IDs of the neighbors of each query one after the other
               </p>
 
               <TABLE  style="text-align:center"  border="1" width="900" cellpadding=5>
@@ -216,7 +231,7 @@
                    <TD> Distance </TD>
                    <TD> Range/k-NN </TD>
                    <TD> Base data </TD>
-                   <TD> Sample data </TD>
+                   <TD> Sample data</TD>
                    <TD> Query data </TD>
                    <TD> Ground truth </TD>
                    <TD> Release terms </TD>
@@ -228,9 +243,9 @@
                    <TD> L2 </TD>
                    <TD> k-NN </TD>
                    <TD> <a href="https://dl.fbaipublicfiles.com/billion-scale-ann-benchmarks/bigann/base.1B.u8bin">1B points</a> </TD>
-                   <TD> <a href="https://dl.fbaipublicfiles.com/billion-scale-ann-benchmarks/bigann/learn.100M.u8bin">100M points</a> </TD>
+                   <TD> <a href="https://dl.fbaipublicfiles.com/billion-scale-ann-benchmarks/bigann/learn.100M.u8bin">100M base points</a> </TD>
                    <TD> <a href="https://dl.fbaipublicfiles.com/billion-scale-ann-benchmarks/bigann/query.public.10K.u8bin">10K queries</a> </TD>
-                   <TD> <a href="https://dl.fbaipublicfiles.com/billion-scale-ann-benchmarks/bigann/GT.public.1B.ibin">link</a> </TD>
+                   <TD> <a href="https://comp21storage.blob.core.windows.net/publiccontainer/comp21/bigann/public_query_gt100.bin">link</a> </TD>
                    <TD> <a href="https://creativecommons.org/share-your-work/public-domain/cc0/">CC0</a> </TD>
                 </TR>
                 <TR>
@@ -254,7 +269,7 @@
                 <TD> <a href="https://comp21storage.blob.core.windows.net/publiccontainer/comp21/MSFT-TURING-ANNS/base1b.fbin"> 1B points</a></TD>
                 <TD> TBA </TD>
                 <TD> <a href="https://comp21storage.blob.core.windows.net/publiccontainer/comp21/MSFT-TURING-ANNS/query100K.fbin">100K queries</a> </TD>
-                <TD> <a href="https://comp21storage.blob.core.windows.net/publiccontainer/comp21/MSFT-TURING-ANNS/query_gt100.ibin">link</a> </TD>
+                <TD> <a href="https://comp21storage.blob.core.windows.net/publiccontainer/comp21/MSFT-TURING-ANNS/query_gt100.bin">link</a> </TD>
                 <TD> <a href="MSFT-Turing-ANNS-terms.txt" target="_blank">link to terms</a> </TD>
               </TR>
               <TR>
@@ -264,9 +279,9 @@
                 <TD> L2 </TD>
                 <TD> k-NN </TD>
                 <TD> <a href="https://comp21storage.blob.core.windows.net/publiccontainer/comp21/spacev1b/spacev1b_base.i8bin">1B points</a></TD>
-                <TD> <a href="https://comp21storage.blob.core.windows.net/publiccontainer/comp21/spacev1b/spacev100m_base.i8bin">100M points</a> </TD>
+                <TD> <a href="https://comp21storage.blob.core.windows.net/publiccontainer/comp21/spacev1b/spacev100m_base.i8bin">100M base points</a> </TD>
                 <TD> <a href="https://comp21storage.blob.core.windows.net/publiccontainer/comp21/spacev1b/query.i8bin">29.3K queries</a> </TD>
-                <TD> <a href="https://comp21storage.blob.core.windows.net/publiccontainer/comp21/spacev1b/spacev1b_gt.ibin">link</a> </TD>
+                <TD> <a href="https://comp21storage.blob.core.windows.net/publiccontainer/comp21/spacev1b/public_query_gt100.bin">link</a> </TD>
                 <TD> <a href="https://github.com/microsoft/SPTAG/blob/master/datasets/SPACEV1B/LICENSE" target="_blank">O-UDA</a> </TD>
               </TR>
               <TR>
@@ -276,9 +291,9 @@
                 <TD> L2 </TD>
                 <TD> k-NN </TD>
                 <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/DEEP/base.1B.fbin">1B points</a> </TD>
-                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/DEEP/learn.350M.fbin ">350M points</a> </TD>
+                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/DEEP/learn.350M.fbin ">350M base points</a> </TD>
                 <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/DEEP/query.public.10K.fbin">10K queries</a> </TD>
-                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/DEEP/groundtruth.public.10K.ibin">link</a> </TD>
+                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/deep_new_groundtruth.public.10K.bin">link</a> </TD>
                 <TD> <a href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> </TD>
               </TR>
               <TR>
@@ -288,9 +303,9 @@
                 <TD> inner-product </TD>
                 <TD> k-NN </TD>
                 <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/base.1B.fbin">1B points</a> </TD>
-                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/query.learn.50M.fbin ">50M points</a> </TD>
+                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/query.learn.50M.fbin ">50M queries</a> </TD>
                 <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/query.public.100K.fbin">100K queries</a> </TD>
-                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/groundtruth.public.100K.ibin">link</a> </TD>
+                <TD> <a href="https://storage.yandexcloud.net/yandex-research/ann-datasets/t2i_new_groundtruth.public.100K.bin">link</a> </TD>
                 <TD> <a href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> </TD>
               </TR>
              </TABLE>
@@ -340,8 +355,8 @@
               <h4>Timeline (subject to change)</h4>
               <ul>
                   <li>May: release of data, guidelines, and a call for participation. Registration open. </li>
-                  <li>Mid-June: Baseline results, testing infrastructure and final ranking metrics released.</li>
-                  <li>June 30th: Participants in need of compute resources to submit an expression of interest.</li>
+                  <li>June: Baseline results, testing infrastructure and final ranking metrics released.</li>
+                  <li>July 9th: Participants in need of compute resources to submit an expression of interest.</li>
                   <li>Mid-July: Allocation of compute resources.</li>
                   <li>July 30th: Final deadline for participants to submit an expression of interest through CMT.</li>
                   <li>October 22nd: End of competition period. Teams to release of code in a containerized form, and complete a pull request to the eval framework with code to run the algorithms.</li>
