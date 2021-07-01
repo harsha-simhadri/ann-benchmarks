@@ -121,7 +121,7 @@
                 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/fsv2-series">Standard_F64s_v2 VM</a>
                 with 4TB of SSD to be used for storing the data, index and other intermediate data (details likely to change).
                 For search, participants are allowed up to 10 hyperparameter configurations. Track T2 would use 
-                <a ref="https://docs.microsoft.com/en-us/azure/virtual-machines/lsv2-series">Standard_L8s_v2 VMs</a> with local SSDs. 
+                <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/lsv2-series">Standard_L8s_v2 VMs</a> with local SSDs. 
                 The protocol for evaluation is as follows:
                 <ul type="none">
                   <li>[on indexing machine] participants will be given a local path with 1B vector dataset. </li>
@@ -154,7 +154,8 @@
                       <li>	[on separate indexing machine] participants build an index from the 1B vectors and store back to local disk </li>
                       <li>  Stored index is copied to eval machine </li>
                       <li>	[on eval machine] T3 organizers load the index from local disk </li>
-                      <li>	[on eval machine] T3 organizers perform searches with held-out query set and measure recall and time to process the queries with several sets of parameters. </li>
+                      <li>	[on eval machine] T3 organizers provide index  with held-out query set and measure recall and time to process the queries with several sets of parameters. 
+                        Index search code can use internal parallelism to batch process the queries.  </li>
                     </ul>
                   </li>
                   <li> For participants that give us remote access to systems, participants are responsible for building their index.
@@ -216,11 +217,17 @@
               queries, followed by <em>num_queries X K x sizeof(float)</em> bytes of data representing the distances to the corresponding points. The distances
               help identify neighbors tied in terms of distances. In recall calculation, returning a neighbor not in the ground truth set but whose distance is tied
               with an entry in the ground truth is counted as success.
-
+              </p>
+              <p>
               The ground truth binary files for range search consist of the following information: <em>num_queries(int32_t)</em> followed by the total number
               of results <em>total_res(int32_t)</em> followed
               by <em> num_queries X size(int32_t)</em> bytes corresponding to <em>num_results_per_query</em> for each query, followed by <em>total_res X sizeof(int32_t)</em>
-              bytes corresponding to the IDs of the neighbors of each query one after the other
+              bytes corresponding to the IDs of the neighbors of each query one after the other.
+              </p>
+              <p>
+              The ground truth files for the first 10M and 100M slice of each dataset against the respective query set can be downloaded
+              <a href="https://comp21storage.blob.core.windows.net/publiccontainer/comp21/10M-gt.tgz">here(10M)</a> and 
+              <a href="https://comp21storage.blob.core.windows.net/publiccontainer/comp21/GT_100M.tgz">here(100M)</a>. 
               </p>
 
               <TABLE  style="text-align:center"  border="1" width="900" cellpadding=5>
@@ -356,7 +363,7 @@
               <ul>
                   <li>May: release of data, guidelines, and a call for participation. Registration open. </li>
                   <li>June: Baseline results, testing infrastructure and final ranking metrics released.</li>
-                  <li>July 9th: Participants in need of compute resources to submit an expression of interest.</li>
+                  <li>July 11th: Participants in need of compute resources to submit an expression of interest.</li>
                   <li>Mid-July: Allocation of compute resources.</li>
                   <li>July 30th: Final deadline for participants to submit an expression of interest through CMT.</li>
                   <li>October 22nd: End of competition period. Teams to release of code in a containerized form, and complete a pull request to the eval framework with code to run the algorithms.</li>
