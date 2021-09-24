@@ -341,7 +341,7 @@
             <div id="metrics">
             <h2>Metrics</h2>
             The competition will measure recall@10 of the algorithms on the 6 data sets a private query set (unreleased) at a fixed query throughput.
-            Track T1 measures recall of algorithms at 10000 Queries/second (on 32 vCPUs), while T2 and T3 measure recall at 2000 Queries/second. 
+            Track T1 measures recall of algorithms at 10000 Queries/second (on 32 vCPUs),  T2 measures recall at 1500 Queries/second, T2 measures recall at 2000 Queries/second. 
             <strong>The primary metric for comparison in each track will be the sum of improvements in recall over the baseline at the target QPS over all datasets.</strong>
               Additionally, track T3 will also rank entries by power and cost per query. See this  
             <a href="https://github.com/harsha-simhadri/big-ann-benchmarks/blob/gw/T3/t3/notebooks/T3Analysis.ipynb"> notebook </a>
@@ -360,7 +360,7 @@
                  <td>10000</td> <td> 0.634 </td> <td>0.753</td> <td>0.703</td> <td>0.728</td> <td>0.650</td> <td>0.069</td>
               </tr>
               <tr>
-                <td> Track 2 </td> <td> DiskANN </td> <td>Azure L8s_v2 8vCPUs + 64GB RAM + 1TB SSD</td>  <td>2000</td> <td> 0.957 </td> <td>0.706</td> <td>0.916</td> <td>0.964</td> <td>0.938</td> <td>0.445</td>
+                <td> Track 2 </td> <td> DiskANN </td> <td>Azure L8s_v2 8vCPUs + 64GB RAM + 1TB SSD</td>  <td>1500</td> <td> 0.949 </td> <td>TBA</td> <td>0.936</td> <td>0.901</td> <td>0.937</td> <td>0.488</td>
               </tr>
               <tr>
                 <td> Track 3 </td> <td> <a href="https://github.com/harsha-simhadri/big-ann-benchmarks/blob/gw/T3/t3/run_faiss_baseline.sh">FAISS-GPU</a> </td> <td>NVIDIA V100 + 700GB RAM</td> 
@@ -372,7 +372,9 @@
             <BR> 
               Baseline DiskANN indices for T2 can be downloaded using "azcopy copy 'https://comp21storage.blob.core.windows.net/publiccontainer/comp21/diskann-T2-baseline-indices' 'local_folder' --recursive". 
                Note that this would take some time as the indices are large. All indices were built using R and L parameters set to 100.
-               Search for T2 used 16 threads and beamwidth 4. The Ls parameter was varied to tune recall vs QPS.
+               Search for T2 used 16 threads and beamwidth 4. The Ls parameter was varied to tune recall vs QPS.<BR>
+               <strong>Update:</strong> T2 baseline results have been modified after measuring via pybind11 interface on docker. There was a 30-40% QPS loss using this interface
+               as compared to direct measurements of C++ code from commandline. As a result, the QPS target has now been lowered, and the recall is reported at this threshold.
             
             
             <div id="call">
